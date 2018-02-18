@@ -1,0 +1,48 @@
+.weather-item {
+    display: inline-flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 500px;
+    text-align: center;
+    margin-top: 20px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-right: 1px solid rgb(189, 225, 240);
+
+}
+
+.weather-item:last-child {
+    border-right: none;
+}
+
+.weather-summary {
+    display: inline-block;
+    font-size: medium;
+    margin: 6px 0;
+}
+
+.day-info {
+    padding: 10px;
+    font-size: small;
+  }
+  
+  .day-info ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 10px;
+  }
+  .day-info ul li {
+    width: 100%;
+    display: inline-block;
+  }
+  .day-info ul li span {
+    display: block;
+    float: left;
+    margin: 0 1%;
+  }
+  .day-info ul .label {
+      width: 55%;
+      padding-right: 6px;
+    text-align: right;
+  }
+  

@@ -1,0 +1,27 @@
+{
+  "name": "weather-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "dark-sky-api": "^0.6.21",
+    "gh-pages": "^1.1.0",
+    "immutable": "^3.8.2",
+    "material-ui": "^0.20.0",
+    "moment": "^2.20.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-geolocated": "^2.3.0",
+    "react-redux": "^5.0.7",
+    "react-scripts": "1.1.1",
+    "react-skycons": "^0.7.0",
+    "react-spinkit": "^3.0.0",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
