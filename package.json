@@ -2,6 +2,7 @@
   "name": "weather-app",
   "version": "0.1.0",
   "private": true,
+  "homepage" : "https://prasantasaha.github.io/weather-app-react/",
   "dependencies": {
     "dark-sky-api": "^0.6.21",
     "gh-pages": "^1.1.0",
@@ -19,6 +20,8 @@
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

@@ -1,7 +1,7 @@
 import { fromJS } from "immutable";
 import DarkSkyApi from 'dark-sky-api';
 
-DarkSkyApi.proxy = '//localhost:8010/weather-app-micro/us-central1/forecast';
+DarkSkyApi.proxy = '//us-central1-weather-app-micro.cloudfunctions.net/forecast';
 
 const INITIAL_STATE = fromJS({
     loading: false,
