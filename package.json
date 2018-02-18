@@ -2,6 +2,7 @@
   "name": "weather-app",
   "version": "0.1.0",
   "private": true,
+  "main": "src/App.js",
   "homepage" : "https://prasantasaha.github.io/weather-app-react/",
   "dependencies": {
     "dark-sky-api": "^0.6.21",
