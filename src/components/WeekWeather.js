@@ -8,7 +8,7 @@ import { updatPosition, getForecast } from "../state/WeatherData";
 class WeekWeather extends React.Component {
 
     componentWillReceiveProps(newProps) {
-        if (!this.props.coords && !Object.is(newProps, this.props.coords)) {
+        if (!this.props.coords && !Object.is(newProps.coords, this.props.coords)) {
             const position = {
                 latitude: newProps.coords.latitude,
                 longitude: newProps.coords.longitude
