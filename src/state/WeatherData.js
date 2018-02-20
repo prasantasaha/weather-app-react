@@ -1,20 +1,19 @@
-import { fromJS } from "immutable";
+import { List, fromJS } from "immutable";
 import DarkSkyApi from "dark-sky-api";
-import geocoder from "geocoder";
+import Geocoder from "geocoder";
 
-DarkSkyApi.proxy =
-  "//us-central1-weather-app-micro.cloudfunctions.net/forecast";
+DarkSkyApi.proxy = "//us-central1-weather-app-micro.cloudfunctions.net/forecast";
 
 const INITIAL_STATE = fromJS({
   loading: false,
   page: 1,
-  geoCode: {},
+  locationName: "",
   position: {},
-  forecast: {}
+  dailyForecast: List()
 });
 
 // the reducer
-export default function(state = INITIAL_STATE, action) {
+export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case "setWeatherData":
       return state.set(action.key, action.value);
@@ -30,7 +29,7 @@ export function setWeatherData(key, val) {
 
 export function updatPosition(newPosition) {
   return (dispatch, getState) => {
-    dispatch(setWeatherData("position", fromJS(newPosition)));
+    dispatch(setWeatherData("position", newPosition));
   };
 }
 
@@ -41,7 +40,7 @@ export function getForecast() {
     DarkSkyApi.loadForecast(getState().WeatherData.get("position")).then(
       result => {
         dispatch(setWeatherData("loading", false));
-        dispatch(setWeatherData("forecast", fromJS(result)));
+        dispatch(setWeatherData("dailyForecast", List(result.daily.data)));
       }
     );
   };
@@ -49,10 +48,14 @@ export function getForecast() {
 
 export function reverseGeocode(latitude, longitude) {
   return (dispatch, getState) => {
-    geocoder.reverseGeocode(latitude, longitude, function(err, data) {
-      if (data && data.results) {
-        dispatch(setWeatherData("geocode"), fromJS(data.results));
+    Geocoder.reverseGeocode(latitude, longitude, function (err, data) {
+      if (data && data.results && data.results.length) {
+        dispatch(setWeatherData("locationName",
+          List(data.results).find(item => {
+            return item.types.length === 1 && item.types[0] === "postal_code";
+          })["formatted_address"]
+        ));
       }
-    });
+    }, {key: "AIzaSyBhLkWlQgsVgvd9XaybJQecqXDSi8fHX4c"});
   };
 }

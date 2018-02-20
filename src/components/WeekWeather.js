@@ -20,9 +20,9 @@ class WeekWeather extends React.Component {
 
     render() {
         return <div className="week-container">
-            {this.props.WeatherData.get("forecast").size
-                ? this.props.WeatherData.get("forecast").get("daily").get("data").map((item, index) => {
-                    return <WeatherItem key={item.get("time")} info={item}>index</WeatherItem>;
+            {this.props.WeatherData.get("dailyForecast").size
+                ? this.props.WeatherData.get("dailyForecast").map((item, index) => {
+                    return <WeatherItem key={item.time} info={item} />;
                 })
                 : <div className="progress-container"><CircularProgress color="white" thickness={7} /></div>}
 

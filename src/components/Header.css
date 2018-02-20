@@ -1,0 +1,18 @@
+header {
+    color: black;
+    display: flex;
+    flex-direction: row;
+    flex: 0 1 auto;
+    background: rgb(255, 255, 255);
+    padding: 1em;
+}
+
+.location-name {
+    font-size: larger;
+    flex: 0 1 auto;
+    margin-right: 10px
+}
+
+.location-search {
+    flex: 1;
+}

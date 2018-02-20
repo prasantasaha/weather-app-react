@@ -18,13 +18,12 @@ export default class WeatherItem extends React.Component {
     };
     return (
       <div className="weather-item">
-        <div>{Moment(weather.get("time") * 1000).calendar(null, { days })}</div>
+        <div>{Moment(weather.time * 1000).calendar(null, { days })}</div>
         <p>
           {
             <Skycons
               color="white"
-              icon={weather
-                .get("icon")
+              icon={weather.icon
                 .toUpperCase()
                 .split("-")
                 .join("_")}
@@ -32,8 +31,8 @@ export default class WeatherItem extends React.Component {
           }
         </p>
         <span>
-          H {weather.get("temperatureHigh")}° / L{" "}
-          {weather.get("temperatureLow")}°
+          H {weather.temperatureHigh}° / L{" "}
+          {weather.temperatureLow}°
         </span>
         <section className="day-info">
           <ul>
@@ -42,37 +41,37 @@ export default class WeatherItem extends React.Component {
               <span className="data">
                 <FormattedNumber
                   className="data"
-                  value={weather.get("precipProbability") * 100}
+                  value={weather.precipProbability * 100}
                 />%
               </span>
             </li>
             <li>
               <span className="label">Humidity:</span>
               <span className="data">
-                <FormattedNumber value={weather.get("humidity") * 100} />%
+                <FormattedNumber value={weather.humidity * 100} />%
               </span>
             </li>
             <li>
               <span className="label">Wind:</span>
               <span className="data">
-                <FormattedNumber value={weather.get("windSpeed")} />mph
+                <FormattedNumber value={weather.windSpeed || 0} /> mph
               </span>
             </li>
             <li>
               <span className="label">Visibility:</span>
               <span className="data">
-                <FormattedNumber value={weather.get("visibility")} />mi
+                <FormattedNumber value={weather.visibility || 0} /> mi
               </span>
             </li>
             <li>
               <span className="label">UV Index:</span>
               <span className="data">
-                <FormattedNumber value={weather.get("uvIndex")} />
+                <FormattedNumber value={weather.uvIndex} />
               </span>
             </li>
           </ul>
         </section>
-        <div className="weather-summary">{weather.get("summary")}</div>
+        <div className="weather-summary">{weather.summary}</div>
       </div>
     );
   }
