@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 
 import CircularProgress from 'material-ui/CircularProgress';
 import WeatherItem from "../components/WeatherItem";
-import { updatPosition, getForecast } from "../state/WeatherData";
+import { getForecast } from "../state/WeatherData";
+import { updatPosition } from "../state/LocationData";
 
 class WeekWeather extends React.Component {
 

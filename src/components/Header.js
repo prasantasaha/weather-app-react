@@ -1,41 +1,26 @@
 import React from "react";
 import { connect } from "react-redux";
-// import AutoComplete from 'material-ui/AutoComplete';
-import { reverseGeocode } from "../state/WeatherData";
 
-import './Header.css'
+import { reverseGeocode } from "../state/LocationData";
+
+import "./Header.css";
+import { PlacesAutoComplete } from "./PlacesAutoComplete";
 class Header extends React.Component {
-  state = {
-    dataSource: [],
-  };
-  handleUpdateInput = (value) => {
-    this.setState({
-      dataSource: [
-        value,
-        value + value,
-        value + value + value,
-      ],
-    });
-  };
-  componentWillReceiveProps(newProps) {
+  componentWillReceiveProps = newProps => {
     if (!this.props.coords && !Object.is(newProps.coords, this.props.coords)) {
       this.props.dispatch(
         reverseGeocode(newProps.coords.latitude, newProps.coords.longitude)
       );
     }
-  }
+  };
 
   render() {
     return (
       <header>
-        <span className="location-name">{this.props.WeatherData.get("locationName")}</span>
-        <div className="location-search">
-          {/* <AutoComplete
-          hintText="Show me the weather in ... city, zip, place" 
-          dataSource={this.state.dataSource}
-          onUpdateInput={this.handleUpdateInput}/> */}
-        </div>
-
+        <span className="location-name">
+          {this.props.LocationData.get("locationName")}
+        </span>
+        <PlacesAutoComplete />
         <a href="https://darksky.net/poweredby/">Powered by Dark Sky</a>
       </header>
     );
