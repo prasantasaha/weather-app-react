@@ -1,24 +1,17 @@
 import { List, fromJS } from "immutable";
 import "whatwg-fetch";
-import Geocoder from "geocoder";
+import { getForecast } from "./WeatherData";
 
-const AUTOCOMPLETE_ENDPOINT =
-  "//us-central1-weather-app-micro.cloudfunctions.net/placesAutoComplete";
+const MAPS_ENDPOINT = `${process.env.REACT_APP_API_BASE_URL}/maps/`;
 
 const INITIAL_STATE = fromJS({
   locationName: "",
   position: {},
-  places: [
-    { id: 0, name: "Facebook" },
-    { id: 1, name: "Yelp" },
-    { id: 2, name: "TV Ad" },
-    { id: 3, name: "Friend" },
-    { id: 4, name: "Other" }
-  ]
+  places: List([])
 });
 
 // the reducer
-export default function(state = INITIAL_STATE, action) {
+export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case "setLocationData":
       return state.set(action.key, action.value);
@@ -38,13 +31,16 @@ export function updatPosition(newPosition) {
   };
 }
 
+
+
+
 // TODO: move to cloud functions
 export function reverseGeocode(latitude, longitude) {
   return (dispatch, getState) => {
-    Geocoder.reverseGeocode(
-      latitude,
-      longitude,
-      function(err, data) {
+    fetch(`${MAPS_ENDPOINT}reverseGeocode?latitude=${latitude}&longitude=${longitude}`)
+      .then((res) => {
+        return res.json();
+      }).then((data) => {
         if (data && data.results && data.results.length) {
           dispatch(
             setLocationData(
@@ -57,26 +53,45 @@ export function reverseGeocode(latitude, longitude) {
             )
           );
         }
-      },
-      { key: "AIzaSyBhLkWlQgsVgvd9XaybJQecqXDSi8fHX4c" }
-    );
+      });
   };
 }
 
 export function placesAutoComplete(input) {
   return (dispatch, getState) => {
     if (input && input.trim().length) {
-      fetch(`${AUTOCOMPLETE_ENDPOINT}?input=${input}`, { mode: "cors" })
+      fetch(`${MAPS_ENDPOINT}autocomplete?input=${input}`, { mode: "cors" })
         .then(result => result.json())
         .then(data => {
-          let prediction = data.prediction || [];
+          let predictions = data.predictions || [];
           dispatch(
             setLocationData(
               "places",
-              List(prediction && prediction.length ? prediction : [])
+              List(predictions.length ? predictions.map(place => {
+                return {
+                  placeId: place.place_id,
+                  displayName: place.description
+                }
+              }) : [])
             )
           );
         });
     }
   };
+}
+
+export function getPlaceById(placeid) {
+  return (dispatch, getState) => {
+    fetch(`${MAPS_ENDPOINT}place?placeid=${placeid}`, { mode: "cors" })
+      .then(result => result.json())
+      .then(data => {
+        const position = {
+          latitude: data.result.geometry.location.lat,
+          longitude: data.result.geometry.location.lng
+        }
+        dispatch(setLocationData("locationName", data.result.formatted_address));
+        dispatch(updatPosition(position));
+        dispatch(getForecast());
+      });
+  }
 }

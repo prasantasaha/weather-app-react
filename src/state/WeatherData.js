@@ -1,8 +1,7 @@
 import { List, fromJS } from "immutable";
 import DarkSkyApi from "dark-sky-api";
 
-DarkSkyApi.proxy =
-  "//us-central1-weather-app-micro.cloudfunctions.net/forecast";
+DarkSkyApi.proxy = `${process.env.REACT_APP_API_BASE_URL}/forecasts`;
 
 const INITIAL_STATE = fromJS({
   loading: false,
@@ -10,7 +9,7 @@ const INITIAL_STATE = fromJS({
 });
 
 // the reducer
-export default function(state = INITIAL_STATE, action) {
+export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case "setWeatherData":
       return state.set(action.key, action.value);

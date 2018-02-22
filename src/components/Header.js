@@ -17,11 +17,15 @@ class Header extends React.Component {
   render() {
     return (
       <header>
-        <span className="location-name">
-          {this.props.LocationData.get("locationName")}
-        </span>
-        <PlacesAutoComplete />
-        <a href="https://darksky.net/poweredby/">Powered by Dark Sky</a>
+        <div className="info-bar">
+          <span className="location-name">
+            {this.props.LocationData.get("locationName")}
+          </span>
+          <a href="https://darksky.net/poweredby/">Powered by Dark Sky</a>
+        </div>
+        <div className="">
+          <PlacesAutoComplete />
+        </div>
       </header>
     );
   }
