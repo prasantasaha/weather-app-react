@@ -1,4 +1,4 @@
-#####Weather App
+#### Weather App
 
 Weather App using React, Redux, Material-UI, Webpack, Redux, ES6 JavaScript, displaying local real-time report powered by [Dark Sky Api](https://darksky.net/dev). 
 
