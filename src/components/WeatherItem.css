@@ -8,7 +8,7 @@
     padding-left: 8px;
     padding-right: 8px;
     border-right: 1px solid rgb(189, 225, 240);
-
+    flex-basis: 12.5%
 }
 
 .weather-item:last-child {
@@ -19,30 +19,35 @@
     display: inline-block;
     font-size: medium;
     margin: 6px 0;
+    text-align: left;
 }
 
 .day-info {
     padding: 10px;
     font-size: small;
-  }
-  
-  .day-info ul {
+}
+
+.day-info ul {
     list-style: none;
     padding-left: 0;
     margin-bottom: 10px;
-  }
-  .day-info ul li {
-    width: 100%;
-    display: inline-block;
-  }
-  .day-info ul li span {
-    display: block;
-    float: left;
+}
+
+.day-info ul li {
+    display: flex;
+}
+
+.day-info ul li span {
     margin: 0 1%;
-  }
-  .day-info ul .label {
-      width: 55%;
-      padding-right: 6px;
+}
+
+.day-info ul .label {
+    flex: 1;
+    padding-right: 6px;
     text-align: right;
-  }
-  
+}
+
+.day-info ul .data {
+    text-align: left;
+    width: 70px;
+}

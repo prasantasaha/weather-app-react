@@ -10,13 +10,6 @@
     height: 100%;
 }
 
-header {
-    flex: 0 1 auto;
-    background: rgb(255, 255, 255);
-    padding: 1em;
-    text-align: right;
-}
-
 .week-container {
     flex: 1;
     overflow: auto;
@@ -24,4 +17,5 @@ header {
     padding: 0.5em;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
